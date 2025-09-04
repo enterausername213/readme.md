@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Filler blog</title>
+	<style>
+		:root{--bg:#000000;--card:#0b1220;--accent:#60a5fa;--muted:#94a3b8}
+		tml,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:#e6eef8}
+		.wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:32px}
+		.card{width:100%;max-width:860px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;padding:36px;box-shadow:0 8px 30px rgba(2,6,23,0.7);border:1px solid rgba(255,255,255,0.03)}
+		.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+		.breadcrumbs{font-size:14px;color:var(--muted)}
+		.title{font-size:36px;font-weight:700;line-height:1.05;min-height:48px}
+		.subtitle{color:var(--muted);margin-top:10px}
+		.content{margin-top:22px;font-size:18px;line-height:1.6;color:#dbeafe;opacity:0;transform:translateY(8px);transition:all .45s cubic-bezier(.2,.9,.3,1)}
+		.content.visible{opacity:1;transform:none}
+		.controls{margin-top:20px;display:flex;gap:10px}
+		.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:8px;color:#cfe8ff;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+		.btn.primary{background:linear-gradient(90deg,var(--accent),#3b82f6);border:none;color:#06203a}
+		.meta{font-size:13px;color:var(--muted);margin-top:14px}
+		/* caret */
+		.caret{display:inline-block;width:10px;height:22px;background:var(--accent);margin-left:6px;vertical-align:middle;animation:blink 1s steps(1) infinite}
+		@keyframes blink{50%{opacity:0}}
+		@media (max-width:560px){.title{font-size:26px}.content{font-size:16px}}
+	</style>
+</head>
+<body>
+  <main class="wrap">
+    <article class="card">
+      <div class="top">
+        <div class="breadcrumbs">readme.md / blog / latest</div>
+        <a class="btn" href="/index.html" id="backBtn">← Back</a>
+      </div>
+
+      <h1 class="title" id="title">About the attempt to compile the kernel for the Motorola PenangF device and why it’s not worth doing.</h1>
+      <div class="subtitle" id="subtitle">Thanks FuckYouMoto team.</div>
+
+      <div class="content" id="content">
+        <p>
+
+My experience compiling the kernel for the Motorola PenangF device began with a discussion in the Diablo chat, where this device was mentioned. As someone who had never done this before, I decided to give it a try and took on the challenge.
+
+In response, I was provided with the kernel source code, compilation instructions, and a list of known issues and bugs encountered by other users. The list included problems with missing or non-working scripts and build process bugs.
+
+Work on the project started late at night. I used Clang and standard tools for compilation but ran into many difficulties. One of the biggest problems was the lack of necessary scripts in the kernel sources, and the official instructions did not work. The scripts mentioned were not included in the sources, the instructions contained many typos, and referenced files that Motorola simply did not provide. Despite attempts to fix this, the problem remained unresolved.
+
+Additional difficulties included manually cloning individual kernel modules. When attempting compilation, an error occurred that could not be resolved, preventing successful compilation and device boot after flashing.
+
+Despite numerous attempts and fixes, only one out of five participants successfully compiled a working kernel, including myself. Even then, the underlying problem remained unresolved.
+
+As I investigated further, it became clear that the source code was incomplete and contained many flaws. Attempts to replace problematic sources with more stable versions from android-13-release-ttt did not help. On the contrary, the build started failing even faster.
+
+The person who managed to build the kernel successfully refused to share details of their success, despite claiming they made no changes. This claim cannot be verified, as it was evident from the start that the solution required additional code modifications to even start the compilation process.
+
+Based on this experience, I concluded that the Motorola PenangF device, like many other Motorola devices, is not worth purchasing. For a detailed explanation of the reasons, I recommend watching a video prepared by Diablo.
+
+Acknowledgments:
+
+Diablo — for inspiration and help during the process.
+
+r0ddty, shomykohai — for initial issue descriptions and GitHub support.
+
+UPDATE 30.08.25
+
+Nothing to explain here; just pasting the issue and translation —
+
+After I completely rewrote your script from scratch, I somehow managed to compile the kernel, manually cloning all kernel modules and configuring various things. Even after this, the kernel does not boot (confirmed).
+
+Correct instructions for using the toolchain were also missing, so I had to figure it out myself.
+
+Various make commands in the script are called without the -j argument, making the build extremely slow and not utilizing the full power of the build machine.
+
+In addition, you reference downloading Android13-5.10 GKI at the top, although the phone uses Android12-5.10 GKI. It’s unclear why the GKI should be downloaded at all in the script.
+
+The kernel module for Bluetooth made compilation impossible without additional fixes on my side.
+
+At least after I fixed all of this, the script worked, but the sources are still broken, so we return to the original problem.
+
+</p>
+<p>UPDATE 30.08.25 Nothing to explain here; just pasting the issue and translation — After I completely rewrote your script from scratch, I somehow managed to compile the kernel, manually cloning all kernel modules and configuring various things. Even after this, the kernel does not boot (confirmed). Correct instructions for using the toolchain were also missing, so I had to figure it out myself. Various make commands in the script are called without the -j argument, making the build extremely slow and not utilizing the full power of the build machine. In addition, you reference downloading Android13-5.10 GKI at the top, although the phone uses Android12-5.10 GKI. It’s unclear why the GKI should be downloaded at all in the script. The kernel module for Bluetooth made compilation impossible without additional fixes on my side. At least after I fixed all of this, the script worked, but the sources are still broken, so we return to the original problem.</p>
+<p>UPDATE: 16:18, 02.09.25 Motorola remained silent for three days. Only on September 1 was a script update published. Between August 28 and September 2, no other changes occurred. I will leave this without comment. The only change made was correcting a typo — replacing “it” with “git.” Such minimal edits against the backdrop of unresolved issues give the impression of a purely formal approach and only reinforce the sense of the company’s helplessness. Motorola continues to ignore constructive feedback and community requests instead of focusing on fixing real errors.</p>
+        <div class="meta">Published - on september 5th</div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Текст заголовка, можно менять
+    const headerText = 'About the attempt to compile the kernel for the Motorola PenangF device and why it’s not worth doing. UPDATE: 16:18 02.09.25';
+    const titleEl = document.getElementById('title');
+    const contentEl = document.getElementById('content');
+    const backBtn = document.getElementById('backBtn');
+
+    // Простая функция печати символов с задержкой
+    function typeWriter(el, text, opts = {}){
+      const {delay = 60, caret = true, onDone} = opts;
+      el.textContent = '';
+      let i = 0;
+      if(caret){
+        const c = document.createElement('span'); c.className = 'caret'; el.appendChild(c);
+      }
+      const interval = setInterval(()=>{
+        // вставляем символ перед caret (если есть)
+        const caretNode = el.querySelector('.caret');
+        if(i >= text.length){
+          clearInterval(interval);
+          if(caretNode) caretNode.remove();
+          if(onDone) onDone();
+          return;
+        }
+        // безопасно добавляем символ
+        const next = document.createTextNode(text[i]);
+        if(caretNode) el.insertBefore(next, caretNode);
+        else el.appendChild(next);
+        i++;
+      }, delay);
+      return {cancel: ()=>clearInterval(interval)};
+    }
+
+    // Запускаем печать заголовка, затем показываем текст
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // если пользователь хочет вернуться — делаем ссылку рабочей
+      backBtn.addEventListener('click', (e)=>{
+            e.preventDefault(); // отменяем стандартное поведение ссылки (если нужно)
+            window.location.href = 'https://enterausername213.github.io/readme.md/';
+      });
+
+      typeWriter(titleEl, headerText, {delay:45, caret:true, onDone: ()=>{
+        // когда печать закончена, плавно показываем содержимое
+        setTimeout(()=>{
+          contentEl.classList.add('visible');
+        }, 250);
+      }});
+    });
+  </script>
+</body>
+</html>
