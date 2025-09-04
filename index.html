@@ -20,30 +20,28 @@
     .container {
       text-align: center;
       max-width: 700px;
-      animation: slideDown 1.2s ease-out forwards;
-      opacity: 0;
     }
 
     h1 {
       font-size: 2.2rem;
       margin-bottom: 0.5rem;
       color: #ffffff;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #ffffff; /* курсор */
+      animation: blinkCursor 0.7s steps(1) infinite;
     }
 
-    p {
-      line-height: 1.6;
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
+    @keyframes blinkCursor {
+      0% { border-color: transparent; }
+      50% { border-color: #ffffff; }
+      100% { border-color: transparent; }
     }
 
-    a {
-      color: #00aaff;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    a:hover {
-      color: #ff0066;
+    .content {
+      opacity: 0;
+      transition: opacity 1s ease-in;
     }
 
     .links {
@@ -63,38 +61,49 @@
     .links a:hover {
       background: #333;
     }
-
-    @keyframes slideDown {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>👋 Hello!</h1>
-    <p>Hi, I’m <b>enterausername213</b>, also known as <b>greeq_.</b> and <b>redbulll_hall</b>.</p>
-    <p>I’m work on <a href="https://github.com/MotorolaMobilityLLC/kernel-mtk" target="_blank">MotorolaMobilityLLC/kernel-mtk</a>. More details here : <a href="https://github.com/MotorolaMobilityLLC/kernel-mtk/issues/174" target="_blank">Issue</a>.</p>
-    <p>📱 Focus: phone flashing & custom ROM experiments</p>
-    <p>💻 Systems: Windows 11 & Arch Linux</p>
-    <p>📥 Reach me on Discord <b>greeq_. </b> and Telegram <b>@redbulll_hall</b></p>
-    <p>And remember, never get a <a href="https://www.fuckyoumoto.xyz/" target="_blank">motorola</a>.</p>
-    <img src="images/sticker2-45f0d955a9079c032fb11c4b2e96f40d.png" alt=")" width="200">
+    <h1 id="typewriter"></h1>
+    <div class="content" id="content">
+      <p>Hi, I’m <b>enterausername213</b>, also known as <b>greeq_.</b> and <b>redbulll_hall</b>.</p>
+      <p>I’m work on <a href="https://github.com/MotorolaMobilityLLC/kernel-mtk" target="_blank">MotorolaMobilityLLC/kernel-mtk</a>. More details here : <a href="https://github.com/MotorolaMobilityLLC/kernel-mtk/issues/174" target="_blank">Issue</a>.</p>
+      <p>📱 Focus: phone flashing & custom ROM experiments</p>
+      <p>💻 Systems: Windows 11 & Arch Linux</p>
+      <p>📥 Reach me on Discord <b>greeq_. </b> and Telegram <b>@redbulll_hall</b></p>
+      <p>And remember, never get a <a href="https://www.fuckyoumoto.xyz/" target="_blank">motorola</a>.</p>
+      <img src="images/sticker2-45f0d955a9079c032fb11c4b2e96f40d.png" alt=")" width="200">
 
-    <div class="links">
-      <a href="https://github.com/enterausername213" target="_blank">GitHub</a>
-      <a href="https://t.me/redbulll_hall" target="_blank">Telegram</a>
-      <a href="https://discord.com/users/greeq_." target="_blank">Discord</a>
+      <div class="links">
+        <a href="https://github.com/enterausername213" target="_blank">GitHub</a>
+        <a href="https://t.me/redbulll_hall" target="_blank">Telegram</a>
+        <a href="https://discord.com/users/greeq_." target="_blank">Discord</a>
+        <a href="link should go here, ill put it in here later" target="_blank">Blog (random things)</a>
+      </div>
     </div>
   </div>
+
+  <script>
+    const text = "👋 Hello!";
+    const heading = document.getElementById("typewriter");
+    const content = document.getElementById("content");
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        heading.textContent = text.substring(0, i + 1);
+        i++;
+        setTimeout(typeWriter, 100);
+      } else {
+        heading.style.borderRight = "2px solid transparent"; // убираем курсор
+        setTimeout(() => {
+          content.style.opacity = 1;
+        }, 300);
+      }
+    }
+
+    window.onload = typeWriter;
+  </script>
 </body>
-
 </html>
-
-
